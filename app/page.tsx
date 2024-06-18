@@ -1,95 +1,175 @@
-import Image from "next/image";
+"use client";
+import { useState } from "react";
 import styles from "./page.module.css";
+import { Sidebar } from "primereact/sidebar";
+import { Button } from "primereact/button";
+import { Avatar } from "primereact/avatar";
+import { TabView, TabPanel } from "primereact/tabview";
+import TableExample from "./components/table/TableExample";
+import CardExample from "./components/card/Card";
+import ChartBasic from "./components/chart/Chart";
+import Multiselect from "./components/multiselect/Multiselect";
+import { Calendar } from "primereact/calendar";
+import { ToggleButton } from "primereact/togglebutton";
+import { InputText } from "primereact/inputtext";
+import { RadioButton } from "primereact/radiobutton";
+import Radio from "./components/radio/Radio";
+import CheckboxExample from "./components/checkbox/Checkbox";
 
 export default function Home() {
+  const [visibleLeftMenu, setVisibleLeftMenu] = useState(false);
+  const [visibleRightMenu, setVisibleRightMenu] = useState(false);
+  const [checked, setChecked] = useState(false);
+  const [date, setDate] = useState(null);
+
   return (
     <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+      {/* LEFT - left sidebar  */}
+      <Button onClick={() => setVisibleLeftMenu(true)}>Open Menu</Button>
+
+      <div className="card flex justify-content-center">
+        <Sidebar
+          title="Hello there jdhakwdjnwakjn"
+          visible={visibleLeftMenu}
+          onHide={() => setVisibleLeftMenu(false)}
+        >
+          <h2>LOGO</h2>
+          <div className={styles.center}>
+            <Avatar shape="circle" /> <span>User Name</span>
+          </div>
+
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+              marginTop: "30px",
+              height: "80%",
+            }}
+            className={styles.leftMenu}
           >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+            <div>
+              <Button link>Projects</Button>
+              <br />
+              <Button link>Interviews</Button>
+              <br />
+            </div>
+            <div>
+              <Button link>Help</Button>
+              <br />
+              <Button link>Feedback</Button>
+              <br />
+            </div>
+          </div>
+        </Sidebar>
+      </div>
+
+      {/* tabs */}
+
+      <TabView>
+        <TabPanel header="Hiring">
+          <div className={styles.centerBetween}>
+            <h1>H1 Projects</h1>
+            <Button onClick={() => setVisibleRightMenu(true)}>
+              + New project
+            </Button>
+          </div>
+          <TableExample />
+
+          <div
+            className={styles.centerBetween}
+            style={{ gap: "30px", marginTop: "69px" }}
+          >
+            <CardExample />
+            <CardExample />
+            <CardExample />
+          </div>
+
+          {/* bar graph */}
+          <h1 style={{ marginTop: "69px" }}>H1 Analytics</h1>
+          <div
+            style={{
+              display: "grid",
+              gridTemplate: "1fr / 1fr 1fr",
+            }}
+          >
+            <ChartBasic />
+            <div>
+              <h3>Graphical view</h3>
+              <p>Some commentary on graph</p>
+              <p>Paragraph text Paragraph text Paragraph text Paragraph text</p>
+            </div>
+          </div>
+        </TabPanel>
+        <TabPanel header="Reskilling"></TabPanel>
+        <TabPanel header="Talent review"></TabPanel>
+      </TabView>
+
+      {/* regular input text */}
+
+      {/* radio button group */}
+
+      {/* checkbox group */}
+
+      <Sidebar
+        title="right"
+        visible={visibleRightMenu}
+        position="right"
+        style={{ width: "600px" }}
+        onHide={() => setVisibleRightMenu(false)}
+      >
+        <div className={styles.centerBetween}>
+          <h1>H1 Header</h1>
+          <div>
+            <Button
+              style={{
+                background: "white",
+                color: "#06B6D4",
+                border: "1px solid #06B6D4",
+              }}
+            >
+              Secondary
+            </Button>
+            <Button style={{ marginLeft: "15px" }}>Primary</Button>
+          </div>
         </div>
-      </div>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
+        <br />
+        <div>Helper text</div>
+        <br />
+        <Multiselect />
+        <br />
+
+        <Calendar
+          value={date}
+          onChange={(e) => setDate(e.value)}
+          placeholder="Select date"
+          style={{ width: "100%" }}
         />
-      </div>
 
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
+        <br />
+        <br />
+        <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
+          <ToggleButton
+            checked={checked}
+            onChange={(e) => setChecked(e.value)}
+            className="w-8rem"
+          />
+          <span>Earth spinning</span>
+        </div>
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
+        <br />
+        <InputText style={{ width: "100%" }} placeholder="Type text here" />
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
+        <br />
+        <br />
+        <h4>Radio button group</h4>
+        <Radio />
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+        <br />
+        <h4>Checkbox group</h4>
+        <CheckboxExample />
+      </Sidebar>
     </main>
   );
 }
