@@ -10,11 +10,10 @@ import CardExample from "./components/card/Card";
 import ChartBasic from "./components/chart/Chart";
 import Multiselect from "./components/multiselect/Multiselect";
 import { Calendar } from "primereact/calendar";
-import { ToggleButton } from "primereact/togglebutton";
 import { InputText } from "primereact/inputtext";
-import { RadioButton } from "primereact/radiobutton";
 import Radio from "./components/radio/Radio";
 import CheckboxExample from "./components/checkbox/Checkbox";
+import { InputSwitch } from "primereact/inputswitch";
 
 export default function Home() {
   const [visibleLeftMenu, setVisibleLeftMenu] = useState(false);
@@ -150,11 +149,11 @@ export default function Home() {
         <br />
         <br />
         <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
-          <ToggleButton
+          <InputSwitch
             checked={checked}
             onChange={(e) => setChecked(e.value)}
-            className="w-8rem"
           />
+
           <span>Earth spinning</span>
         </div>
 
